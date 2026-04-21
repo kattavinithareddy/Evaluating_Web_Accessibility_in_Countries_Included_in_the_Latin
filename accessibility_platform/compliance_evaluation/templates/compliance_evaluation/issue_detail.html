@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Issue Detail - Accessibility Platform{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 900px; margin-top: 40px;">
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+            <div>
+                <h2 style="margin-bottom: 10px;">{{ issue.get_issue_type_display }}</h2>
+                <p style="color: var(--text-light);">WCAG {{ issue.wcag_criterion }}</p>
+            </div>
+            <span class="badge badge-{{ issue.severity }}" style="font-size: 1rem; padding: 8px 16px;">{{ issue.get_severity_display }}</span>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Description</h3>
+            <p style="color: var(--text-color);">{{ issue.description }}</p>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Recommendation</h3>
+            <p style="color: var(--text-color);">{{ issue.recommendation }}</p>
+        </div>
+        
+        {% if issue.element_selector %}
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Element Selector</h3>
+            <code style="background: #2c3e50; color: #ecf0f1; padding: 10px; border-radius: 4px; display: block;">{{ issue.element_selector }}</code>
+        </div>
+        {% endif %}
+        
+        {% if issue.code_snippet %}
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Code Snippet</h3>
+            <pre style="background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 4px; overflow-x: auto;">{{ issue.code_snippet }}</pre>
+        </div>
+        {% endif %}
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Page URL</h3>
+            <a href="{{ issue.page_url }}" target="_blank" style="color: var(--primary-color); word-break: break-all;">{{ issue.page_url }}</a>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Status</h3>
+            {% if issue.is_resolved %}
+                <p style="color: var(--success-color); font-weight: 600;">✓ Resolved on {{ issue.resolved_at|date:"M d, Y" }}</p>
+            {% else %}
+                <p style="color: var(--warning-color); font-weight: 600;">⚠ Unresolved</p>
+            {% endif %}
+        </div>
+        
+        <form method="post" style="display: flex; gap: 10px; margin-top: 30px;">
+            {% csrf_token %}
+            {% if issue.is_resolved %}
+                <button type="submit" name="action" value="unresolve" class="btn btn-warning">Mark as Unresolved</button>
+            {% else %}
+                <button type="submit" name="action" value="resolve" class="btn btn-success">Mark as Resolved</button>
+            {% endif %}
+            <a href="{% url 'compliance_evaluation:project_detail' issue.project.pk %}" class="btn btn-secondary">Back to Project</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

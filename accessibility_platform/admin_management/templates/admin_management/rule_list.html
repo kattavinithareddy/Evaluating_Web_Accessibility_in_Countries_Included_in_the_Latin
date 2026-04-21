@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Accessibility Rules - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 40px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h2>Accessibility Rules</h2>
+        <a href="{% url 'admin_management:rule_create' %}" class="btn btn-primary">+ Add New Rule</a>
+    </div>
+    
+    {% if rules %}
+    <div class="card">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Rule ID</th>
+                    <th>Rule Name</th>
+                    <th>WCAG Criterion</th>
+                    <th>Level</th>
+                    <th>Severity</th>
+                    <th>Weight</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rule in rules %}
+                <tr>
+                    <td><strong>{{ rule.rule_id }}</strong></td>
+                    <td>{{ rule.rule_name }}</td>
+                    <td>{{ rule.wcag_criterion }}</td>
+                    <td><span class="badge badge-minor">{{ rule.get_wcag_level_display }}</span></td>
+                    <td><span class="badge badge-{{ rule.severity_default }}">{{ rule.get_severity_default_display }}</span></td>
+                    <td>{{ rule.weight }}</td>
+                    <td>
+                        {% if rule.is_active %}
+                            <span class="badge badge-success">Active</span>
+                        {% else %}
+                            <span class="badge badge-moderate">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'admin_management:rule_update' rule.pk %}" class="btn btn-primary" style="padding: 5px 15px; font-size: 0.85rem;">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div style="margin-top: 30px; text-align: center;">
+        <div style="display: inline-flex; gap: 10px; align-items: center;">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="btn btn-outline">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline">Previous</a>
+            {% endif %}
+            
+            <span style="color: var(--text-light);">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline">Last</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="card" style="text-align: center; padding: 60px 20px;">
+        <h3 style="color: var(--text-light); margin-bottom: 20px;">No Rules Found</h3>
+        <a href="{% url 'admin_management:rule_create' %}" class="btn btn-primary">Create First Rule</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

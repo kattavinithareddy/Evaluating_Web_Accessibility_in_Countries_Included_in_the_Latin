@@ -1,0 +1,131 @@
+run in shell at last
+
+from policy_guidance.models import PolicyFramework
+from datetime import date
+
+# WCAG 2.2 Guidelines
+PolicyFramework.objects.create(
+    framework_name="WCAG 2.2 Level A",
+    framework_type="wcag",
+    version="2.2",
+    region="Global",
+    effective_date=date(2023, 10, 5),
+    description="Web Content Accessibility Guidelines (WCAG) 2.2 Level A requirements. These are the basic accessibility features that must be present for users with disabilities.",
+    compliance_level="A",
+    summary="Level A guidelines cover fundamental accessibility requirements including text alternatives, keyboard accessibility, and time-based media alternatives.",
+    authority_body="W3C - World Wide Web Consortium",
+    reference_url="https://www.w3.org/WAI/WCAG22/quickref/?currentsidebar=%23col_overview&levels=a"
+)
+
+PolicyFramework.objects.create(
+    framework_name="WCAG 2.2 Level AA",
+    framework_type="wcag",
+    version="2.2",
+    region="Global",
+    effective_date=date(2023, 10, 5),
+    description="Web Content Accessibility Guidelines (WCAG) 2.2 Level AA requirements. This is the internationally recognized standard for web accessibility compliance.",
+    compliance_level="AA",
+    summary="Level AA includes all Level A criteria plus additional requirements for color contrast, text resizing, navigation consistency, and error identification.",
+    authority_body="W3C - World Wide Web Consortium",
+    reference_url="https://www.w3.org/WAI/WCAG22/quickref/?currentsidebar=%23col_overview&levels=aa"
+)
+
+PolicyFramework.objects.create(
+    framework_name="WCAG 2.2 Level AAA",
+    framework_type="wcag",
+    version="2.2",
+    region="Global",
+    effective_date=date(2023, 10, 5),
+    description="Web Content Accessibility Guidelines (WCAG) 2.2 Level AAA requirements. The highest level of accessibility conformance.",
+    compliance_level="AAA",
+    summary="Level AAA includes all Level A and AA criteria plus the most stringent requirements for sign language interpretation, extended audio descriptions, and enhanced contrast ratios.",
+    authority_body="W3C - World Wide Web Consortium",
+    reference_url="https://www.w3.org/WAI/WCAG22/quickref/?currentsidebar=%23col_overview&levels=aaa"
+)
+
+# Section 508
+PolicyFramework.objects.create(
+    framework_name="Section 508 (Revised)",
+    framework_type="section_508",
+    version="Revised 2017",
+    region="United States",
+    effective_date=date(2018, 1, 18),
+    description="U.S. Federal accessibility standard requiring federal agencies to make their electronic and information technology accessible to people with disabilities.",
+    compliance_level="AA",
+    summary="Section 508 requires federal agencies and contractors to provide accessible technology. The revised standards align with WCAG 2.0 Level AA.",
+    authority_body="U.S. Access Board",
+    reference_url="https://www.section508.gov/"
+)
+
+# ADA
+PolicyFramework.objects.create(
+    framework_name="ADA Title III",
+    framework_type="ada",
+    version="2010",
+    region="United States",
+    effective_date=date(2010, 9, 15),
+    description="Americans with Disabilities Act Title III requires places of public accommodation to provide accessible websites and digital services.",
+    compliance_level="AA",
+    summary="ADA Title III applies to private businesses and requires websites to be accessible. Courts generally expect WCAG 2.0/2.1 Level AA compliance.",
+    authority_body="U.S. Department of Justice",
+    reference_url="https://www.ada.gov/"
+)
+
+# European Standards
+PolicyFramework.objects.create(
+    framework_name="EN 301 549",
+    framework_type="en_301_549",
+    version="3.2.1",
+    region="European Union",
+    effective_date=date(2021, 3, 1),
+    description="European standard for digital accessibility requirements applicable to ICT products and services, including websites, mobile applications, and software.",
+    compliance_level="AA",
+    summary="EN 301 549 is the European accessibility standard harmonized with WCAG 2.1 Level AA. Required for public sector websites and mobile applications in EU member states.",
+    authority_body="European Telecommunications Standards Institute (ETSI)",
+    reference_url="https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf"
+)
+
+# Canadian Standard
+PolicyFramework.objects.create(
+    framework_name="Accessible Canada Act (ACA)",
+    framework_type="other",
+    version="2019",
+    region="Canada",
+    effective_date=date(2019, 7, 11),
+    description="Canadian federal legislation aimed at identifying, removing, and preventing barriers to accessibility in areas under federal jurisdiction.",
+    compliance_level="AA",
+    summary="The ACA requires federally regulated organizations to comply with accessibility standards. Digital accessibility follows WCAG 2.0 Level AA guidelines.",
+    authority_body="Government of Canada",
+    reference_url="https://laws-lois.justice.gc.ca/eng/acts/A-0.6/"
+)
+
+# Australian Standard
+PolicyFramework.objects.create(
+    framework_name="Disability Discrimination Act",
+    framework_type="other",
+    version="1992",
+    region="Australia",
+    effective_date=date(1992, 3, 1),
+    description="Australian anti-discrimination law that makes it unlawful to discriminate against people with disabilities, including in access to websites and digital services.",
+    compliance_level="AA",
+    summary="Under the DDA, Australian organizations must ensure websites are accessible. WCAG 2.0/2.1 Level AA is the recognized standard.",
+    authority_body="Australian Human Rights Commission",
+    reference_url="https://www.humanrights.gov.au/our-work/disability-rights"
+)
+
+# UK Standard
+PolicyFramework.objects.create(
+    framework_name="UK Public Sector Accessibility Regulations",
+    framework_type="other",
+    version="2018",
+    region="United Kingdom",
+    effective_date=date(2018, 9, 23),
+    description="UK regulations requiring public sector websites and mobile apps to meet accessibility standards based on WCAG 2.1 Level AA.",
+    compliance_level="AA",
+    summary="Public sector bodies in the UK must publish an accessibility statement and ensure their websites and apps meet WCAG 2.1 Level AA standards.",
+    authority_body="UK Government Digital Service",
+    reference_url="https://www.gov.uk/guidance/accessibility-requirements-for-public-sector-websites-and-apps"
+)
+
+print("✓ Successfully created 9 policy frameworks!")
+print("You can now view them at: http://127.0.0.1:8000/policy/policies/")

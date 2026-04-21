@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Project - Accessibility Platform{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 700px; margin-top: 40px;">
+    <div class="card">
+        <div class="card-header">
+            <h3>Edit Project</h3>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.project_name.id_for_label }}">Project Name *</label>
+                {{ form.project_name }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.project_type.id_for_label }}">Project Type *</label>
+                {{ form.project_type }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.url.id_for_label }}">URL *</label>
+                {{ form.url }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.wcag_level_target.id_for_label }}">Target WCAG Level *</label>
+                {{ form.wcag_level_target }}
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="flex: 1;">Update Project</button>
+                <a href="{% url 'compliance_evaluation:project_detail' object.pk %}" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

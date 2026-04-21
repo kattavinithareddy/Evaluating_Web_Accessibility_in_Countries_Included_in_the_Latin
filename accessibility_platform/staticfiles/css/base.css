@@ -1,0 +1,136 @@
+:root {
+    --primary-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    --secondary-gradient: linear-gradient(135deg, #636363 0%, #3c3c3c 100%);
+    --success-gradient: linear-gradient(135deg, #16a085 0%, #1abc9c 100%);
+    --warning-gradient: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    --dark-gradient: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+    
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --success-color: #16a085;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --text-color: #2c3e50;
+    --text-light: #7f8c8d;
+    --bg-light: #ecf0f1;
+    --border-color: #bdc3c7;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: linear-gradient(135deg, #d4d4d4 0%, #a8a8a8 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Rest of the CSS remains the same structure, colors updated */
+.navbar {
+    background: var(--primary-gradient);
+    color: #ecf0f1;
+    padding: 1rem 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand a {
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+.navbar-menu a {
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+    font-weight: 500;
+}
+
+.navbar-menu a:hover {
+    background: rgba(236, 240, 241, 0.2);
+}
+
+.user-btn {
+    background: rgba(236, 240, 241, 0.2);
+    border: 2px solid #ecf0f1;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #ecf0f1;
+}
+
+.dropdown-content {
+    background: #ecf0f1;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+}
+
+.card {
+    background: #ecf0f1;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: #ecf0f1;
+}
+
+.btn-secondary {
+    background: var(--secondary-gradient);
+    color: #ecf0f1;
+}
+
+.btn-success {
+    background: var(--success-gradient);
+    color: #ecf0f1;
+}
+
+.btn-warning {
+    background: var(--warning-gradient);
+    color: #ecf0f1;
+}
+
+.table thead {
+    background: var(--primary-gradient);
+    color: #ecf0f1;
+}
+
+.badge-critical {
+    background: #c0392b;
+    color: #ecf0f1;
+}
+
+.badge-serious {
+    background: #e67e22;
+    color: #ecf0f1;
+}
+
+.badge-moderate {
+    background: #f39c12;
+    color: #2c3e50;
+}
+
+.badge-minor {
+    background: #16a085;
+    color: #ecf0f1;
+}
+
+.footer {
+    background: var(--dark-gradient);
+    color: #ecf0f1;
+    padding: 30px 0;
+    text-align: center;
+    margin-top: auto;
+}

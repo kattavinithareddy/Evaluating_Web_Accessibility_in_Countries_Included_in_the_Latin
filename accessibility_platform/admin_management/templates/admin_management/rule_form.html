@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if object %}Edit{% else %}Create{% endif %} Rule - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin-top: 40px;">
+    <div class="card">
+        <div class="card-header">
+            <h3>{% if object %}Edit Rule{% else %}Create New Rule{% endif %}</h3>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="form-group">
+                    <label for="{{ form.rule_id.id_for_label }}">Rule ID *</label>
+                    {{ form.rule_id }}
+                    {% if form.rule_id.errors %}
+                        <small style="color: var(--danger-color);">{{ form.rule_id.errors.0 }}</small>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.wcag_criterion.id_for_label }}">WCAG Criterion *</label>
+                    {{ form.wcag_criterion }}
+                    {% if form.wcag_criterion.errors %}
+                        <small style="color: var(--danger-color);">{{ form.wcag_criterion.errors.0 }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.rule_name.id_for_label }}">Rule Name *</label>
+                {{ form.rule_name }}
+                {% if form.rule_name.errors %}
+                    <small style="color: var(--danger-color);">{{ form.rule_name.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description *</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <small style="color: var(--danger-color);">{{ form.description.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.testing_procedure.id_for_label }}">Testing Procedure *</label>
+                {{ form.testing_procedure }}
+                {% if form.testing_procedure.errors %}
+                    <small style="color: var(--danger-color);">{{ form.testing_procedure.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                <div class="form-group">
+                    <label for="{{ form.wcag_level.id_for_label }}">WCAG Level *</label>
+                    {{ form.wcag_level }}
+                    {% if form.wcag_level.errors %}
+                        <small style="color: var(--danger-color);">{{ form.wcag_level.errors.0 }}</small>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.severity_default.id_for_label }}">Default Severity *</label>
+                    {{ form.severity_default }}
+                    {% if form.severity_default.errors %}
+                        <small style="color: var(--danger-color);">{{ form.severity_default.errors.0 }}</small>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.weight.id_for_label }}">Weight *</label>
+                    {{ form.weight }}
+                    {% if form.weight.errors %}
+                        <small style="color: var(--danger-color);">{{ form.weight.errors.0 }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    {{ form.is_active }}
+                    <label for="{{ form.is_active.id_for_label }}" style="margin: 0;">Rule is active</label>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="flex: 1;">{% if object %}Update{% else %}Create{% endif %} Rule</button>
+                <a href="{% url 'admin_management:rule_list' %}" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

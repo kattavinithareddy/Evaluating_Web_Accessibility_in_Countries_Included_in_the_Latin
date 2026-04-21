@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Testing Programs - Accessibility Platform{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 40px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h2>User Testing Programs</h2>
+        <a href="{% url 'user_testing:program_create' %}" class="btn btn-primary">+ New Program</a>
+    </div>
+    
+    {% if programs %}
+        <div style="display: grid; gap: 20px;">
+            {% for program in programs %}
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div style="flex: 1;">
+                        <h3 style="margin-bottom: 10px;">{{ program.program_name }}</h3>
+                        <p style="color: var(--text-light); margin-bottom: 10px;">{{ program.description|truncatewords:20 }}</p>
+                        <p style="color: var(--text-light); font-size: 0.9rem;">
+                            <strong>Project:</strong> {{ program.project.project_name }}
+                        </p>
+                        <p style="color: var(--text-light); font-size: 0.9rem;">
+                            <strong>Duration:</strong> {{ program.start_date|date:"M d, Y" }} - {{ program.end_date|date:"M d, Y" }}
+                        </p>
+                    </div>
+                    <span class="badge badge-{{ program.status }}" style="font-size: 0.9rem;">{{ program.get_status_display }}</span>
+                </div>
+                
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; gap: 10px;">
+                    <a href="{% url 'user_testing:program_detail' program.pk %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card" style="text-align: center; padding: 60px 20px;">
+            <h3 style="color: var(--text-light); margin-bottom: 20px;">No Testing Programs</h3>
+            <p style="color: var(--text-light); margin-bottom: 30px;">Create a testing program to gather user feedback</p>
+            <a href="{% url 'user_testing:program_create' %}" class="btn btn-primary">Create Program</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}System Configuration - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 900px; margin-top: 40px;">
+    <h2 style="margin-bottom: 30px;">System Configuration</h2>
+    
+    <div class="card" style="margin-bottom: 30px;">
+        <div class="card-header">
+            <h3>Add/Update Configuration</h3>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="config_key">Configuration Key *</label>
+                <input type="text" name="config_key" id="config_key" class="form-control" placeholder="e.g., MAX_SCAN_PAGES" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="config_value">Configuration Value *</label>
+                <textarea name="config_value" id="config_value" class="form-control" rows="3" placeholder="Configuration value..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" class="form-control" rows="2" placeholder="Brief description..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Save Configuration</button>
+        </form>
+    </div>
+    
+    {% if configurations %}
+    <div class="card">
+        <div class="card-header">
+            <h3>Current Configurations</h3>
+        </div>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                    <th>Updated By</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for config in configurations %}
+                <tr>
+                    <td><strong>{{ config.config_key }}</strong></td>
+                    <td><code>{{ config.config_value|truncatewords:5 }}</code></td>
+                    <td>{{ config.description|default:"—" }}</td>
+                    <td>{{ config.updated_by.username|default:"System" }}</td>
+                    <td>{{ config.updated_at|date:"M d, Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

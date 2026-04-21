@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Report Detail - Accessibility Platform{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 900px; margin-top: 40px;">
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+            <div>
+                <h2 style="margin-bottom: 10px;">{{ report.title }}</h2>
+                <p style="color: var(--text-light);">
+                    Generated on {{ report.generated_at|date:"M d, Y H:i" }}
+                </p>
+            </div>
+            <span class="badge badge-success">{{ report.report_format|upper }}</span>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Report Type</h3>
+            <p>{{ report.get_report_type_display }}</p>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Project</h3>
+            <p>{{ report.project.project_name }}</p>
+            <a href="{{ report.project.url }}" target="_blank" style="color: var(--secondary-color);">{{ report.project.url }}</a>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Report Summary</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                <div style="padding: 15px; background: var(--bg-light); border-radius: 8px;">
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 5px;">Compliance Score</p>
+                    <h3 style="margin: 0;">{{ report.report_data.project.compliance_score }}%</h3>
+                </div>
+                <div style="padding: 15px; background: var(--bg-light); border-radius: 8px;">
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 5px;">Total Issues</p>
+                    <h3 style="margin: 0;">{{ report.report_data.total_issues }}</h3>
+                </div>
+                <div style="padding: 15px; background: var(--bg-light); border-radius: 8px;">
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 5px;">Resolved</p>
+                    <h3 style="margin: 0; color: var(--success-color);">{{ report.report_data.resolved_issues }}</h3>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Issues Breakdown</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Severity</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-critical">Critical</span></td>
+                        <td>{{ report.report_data.issues.critical }}</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-serious">Serious</span></td>
+                        <td>{{ report.report_data.issues.serious }}</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-moderate">Moderate</span></td>
+                        <td>{{ report.report_data.issues.moderate }}</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-minor">Minor</span></td>
+                        <td>{{ report.report_data.issues.minor }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div style="display: flex; gap: 10px; margin-top: 30px;">
+            <a href="{% url 'insights_reporting:download_report' report.pk %}" class="btn btn-success">Download Report</a>
+            <a href="{% url 'insights_reporting:reports_list' %}" class="btn btn-secondary">Back to Reports</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

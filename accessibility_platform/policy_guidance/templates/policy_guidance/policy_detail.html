@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ policy.framework_name }} - Accessibility Platform{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 900px; margin-top: 40px;">
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+            <div style="flex: 1;">
+                <h2 style="margin-bottom: 10px;">{{ policy.framework_name }}</h2>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                    <span class="badge badge-{{ policy.framework_type }}">{{ policy.get_framework_type_display }}</span>
+                    <span class="badge badge-minor">{{ policy.region }}</span>
+                    {% if policy.effective_date %}
+                        <span class="badge badge-success">Effective: {{ policy.effective_date|date:"M d, Y" }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 25px; padding-bottom: 25px; border-bottom: 2px solid var(--border-color);">
+            <h3 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--secondary-color);">Description</h3>
+            <p style="color: var(--text-color); line-height: 1.8; font-size: 1.05rem;">{{ policy.description }}</p>
+        </div>
+        
+        {% if policy.reference_url %}
+        <div style="margin-bottom: 25px; padding: 20px; background: var(--bg-light); border-radius: 10px; border-left: 4px solid var(--secondary-color);">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">📚 Official Reference</h3>
+            <a href="{{ policy.reference_url }}" target="_blank" rel="noopener noreferrer" style="color: var(--secondary-color); word-break: break-all; font-weight: 500;">
+                {{ policy.reference_url }} ↗
+            </a>
+        </div>
+        {% endif %}
+        
+        <div style="margin-bottom: 25px;">
+            <h3 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--secondary-color);">Policy Information</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="padding: 15px; background: var(--bg-light); border-radius: 8px;">
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 5px;">Framework Type</p>
+                    <p style="font-weight: 600; font-size: 1.1rem; margin: 0;">{{ policy.get_framework_type_display }}</p>
+                </div>
+                
+                <div style="padding: 15px; background: var(--bg-light); border-radius: 8px;">
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 5px;">Region</p>
+                    <p style="font-weight: 600; font-size: 1.1rem; margin: 0;">{{ policy.region }}</p>
+                </div>
+                
+                {% if policy.effective_date %}
+                <div style="padding: 15px; background: var(--bg-light); border-radius: 8px;">
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 5px;">Effective Date</p>
+                    <p style="font-weight: 600; font-size: 1.1rem; margin: 0;">{{ policy.effective_date|date:"F d, Y" }}</p>
+                </div>
+                {% endif %}
+                
+                <div style="padding: 15px; background: var(--bg-light); border-radius: 8px;">
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 5px;">Last Updated</p>
+                    <p style="font-weight: 600; font-size: 1.1rem; margin: 0;">{{ policy.updated_at|date:"M d, Y" }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Requirements Section -->
+        <div style="margin-bottom: 25px; padding: 20px; background: linear-gradient(135deg, rgba(116, 185, 255, 0.1), rgba(9, 132, 227, 0.1)); border-radius: 10px;">
+            <h3 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--secondary-color);">🎯 Key Requirements</h3>
+            {% if policy.framework_type == 'wcag' %}
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Provide text alternatives for non-text content</li>
+                    <li>Ensure content is keyboard accessible</li>
+                    <li>Use sufficient color contrast ratios</li>
+                    <li>Make navigation consistent and predictable</li>
+                    <li>Provide clear error messages and suggestions</li>
+                    <li>Ensure compatibility with assistive technologies</li>
+                </ul>
+            {% elif policy.framework_type == 'section_508' %}
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Software applications and operating systems</li>
+                    <li>Web-based intranet and internet information</li>
+                    <li>Telecommunications products</li>
+                    <li>Video and multimedia products</li>
+                    <li>Self-contained, closed products</li>
+                    <li>Desktop and portable computers</li>
+                </ul>
+            {% elif policy.framework_type == 'ada' %}
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Websites must be equally accessible to people with disabilities</li>
+                    <li>Applies to places of public accommodation</li>
+                    <li>Includes private businesses and commercial facilities</li>
+                    <li>Courts generally expect WCAG 2.0/2.1 Level AA compliance</li>
+                    <li>Covers online ordering, reservations, and services</li>
+                </ul>
+            {% elif policy.framework_type == 'en_301_549' %}
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Applicable to ICT products and services</li>
+                    <li>Harmonized with WCAG 2.1 Level AA</li>
+                    <li>Required for public sector websites in EU</li>
+                    <li>Covers mobile applications and software</li>
+                    <li>Includes hardware and documentation requirements</li>
+                </ul>
+            {% else %}
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Follow international accessibility standards</li>
+                    <li>Ensure digital content is accessible to all users</li>
+                    <li>Provide alternative formats when requested</li>
+                    <li>Regular accessibility audits and testing</li>
+                    <li>Staff training on accessibility requirements</li>
+                </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Compliance Tips -->
+        <div style="margin-bottom: 25px; padding: 20px; background: linear-gradient(135deg, rgba(0, 184, 148, 0.1), rgba(0, 206, 201, 0.1)); border-radius: 10px;">
+            <h3 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--success-color);">✅ Compliance Tips</h3>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li>Conduct regular automated and manual accessibility testing</li>
+                <li>Include users with disabilities in testing processes</li>
+                <li>Maintain an accessibility statement on your website</li>
+                <li>Provide multiple ways to contact for accessibility issues</li>
+                <li>Document remediation efforts and timelines</li>
+                <li>Train content creators and developers on accessibility</li>
+                <li>Use this platform to scan and monitor your projects</li>
+            </ul>
+        </div>
+        
+        <!-- Related Projects -->
+        {% if related_projects %}
+        <div style="margin-bottom: 25px;">
+            <h3 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--secondary-color);">📊 Projects Using This Standard</h3>
+            <div style="display: grid; gap: 15px;">
+                {% for project in related_projects %}
+                <div style="padding: 15px; background: var(--bg-light); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h4 style="margin: 0 0 5px 0;">{{ project.project_name }}</h4>
+                        <p style="color: var(--text-light); font-size: 0.9rem; margin: 0;">{{ project.url|truncatechars:60 }}</p>
+                    </div>
+                    <a href="{% url 'compliance_evaluation:project_detail' project.pk %}" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">View Project</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <div style="display: flex; gap: 15px; margin-top: 30px; padding-top: 25px; border-top: 2px solid var(--border-color);">
+            <a href="{% url 'policy_guidance:policy_list' %}" class="btn btn-secondary">← Back to Policies</a>
+            {% if policy.reference_url %}
+                <a href="{{ policy.reference_url }}" target="_blank" class="btn btn-primary">View Official Documentation ↗</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Additional Resources Card -->
+    <div class="card" style="margin-top: 20px;">
+        <h3 style="margin-bottom: 15px;">📖 Additional Resources</h3>
+        <div style="display: grid; gap: 15px;">
+            <a href="https://www.w3.org/WAI/" target="_blank" style="padding: 15px; background: var(--bg-light); border-radius: 8px; text-decoration: none; color: var(--text-color); display: block; transition: all 0.3s ease;">
+                <h4 style="margin: 0 0 5px 0; color: var(--secondary-color);">W3C Web Accessibility Initiative</h4>
+                <p style="margin: 0; color: var(--text-light); font-size: 0.9rem;">Comprehensive resources and guidelines for web accessibility</p>
+            </a>
+            
+            <a href="https://www.deque.com/axe/" target="_blank" style="padding: 15px; background: var(--bg-light); border-radius: 8px; text-decoration: none; color: var(--text-color); display: block; transition: all 0.3s ease;">
+                <h4 style="margin: 0 0 5px 0; color: var(--secondary-color);">Axe DevTools</h4>
+                <p style="margin: 0; color: var(--text-light); font-size: 0.9rem;">Browser extension for accessibility testing</p>
+            </a>
+            
+            <a href="https://webaim.org/" target="_blank" style="padding: 15px; background: var(--bg-light); border-radius: 8px; text-decoration: none; color: var(--text-color); display: block; transition: all 0.3s ease;">
+                <h4 style="margin: 0 0 5px 0; color: var(--secondary-color);">WebAIM</h4>
+                <p style="margin: 0; color: var(--text-light); font-size: 0.9rem;">Articles, resources, and training on web accessibility</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .badge-wcag { background: linear-gradient(135deg, #74b9ff, #0984e3); color: #ffffff; }
+    .badge-section_508 { background: linear-gradient(135deg, #fdcb6e, #f39c12); color: #2d3436; }
+    .badge-ada { background: linear-gradient(135deg, #ff7675, #d63031); color: #ffffff; }
+    .badge-en_301_549 { background: linear-gradient(135deg, #a29bfe, #6c5ce7); color: #ffffff; }
+    .badge-other { background: linear-gradient(135deg, #636e72, #2d3436); color: #ffffff; }
+</style>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Policy Guidance - Accessibility Platform{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 40px;">
+    <h2 style="margin-bottom: 30px;">Policy Guidance & Standards</h2>
+    
+    <!-- Filter Section -->
+    <div class="card" style="margin-bottom: 30px;">
+        <form method="get" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
+            <div class="form-group" style="margin: 0;">
+                <label>Framework Type</label>
+                <select name="type" class="form-control">
+                    <option value="">All Types</option>
+                    {% for value, label in framework_types %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group" style="margin: 0;">
+                <label>Region</label>
+                <input type="text" name="region" class="form-control" placeholder="Enter region">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+    </div>
+    
+    <!-- Policies Grid -->
+    {% if policies %}
+        <div style="display: grid; gap: 20px;">
+            {% for policy in policies %}
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                    <div style="flex: 1;">
+                        <h3 style="margin-bottom: 10px;">{{ policy.framework_name }}</h3>
+                        <span class="badge badge-minor">{{ policy.get_framework_type_display }}</span>
+                        {% if policy.region %}
+                            <span class="badge badge-moderate" style="margin-left: 5px;">{{ policy.region }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <p style="color: var(--text-color); margin-bottom: 15px;">{{ policy.description|truncatewords:30 }}</p>
+                
+                {% if policy.effective_date %}
+                <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px;">
+                    <strong>Effective Date:</strong> {{ policy.effective_date|date:"M d, Y" }}
+                </p>
+                {% endif %}
+                
+                <a href="{% url 'policy_guidance:policy_detail' policy.pk %}" class="btn btn-primary">View Details</a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card" style="text-align: center; padding: 60px 20px;">
+            <h3 style="color: var(--text-light);">No policies found</h3>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

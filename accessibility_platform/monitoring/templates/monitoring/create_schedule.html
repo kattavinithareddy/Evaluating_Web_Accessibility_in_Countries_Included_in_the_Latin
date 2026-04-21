@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Monitoring Schedule - Accessibility Platform{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 600px; margin-top: 40px;">
+    <div class="card">
+        <div class="card-header">
+            <h3>Create Monitoring Schedule</h3>
+            <p style="color: var(--text-light); margin-top: 10px;">Project: {{ project.project_name }}</p>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.frequency.id_for_label }}">Scan Frequency *</label>
+                {{ form.frequency }}
+                {% if form.frequency.errors %}
+                    <small style="color: var(--danger-color);">{{ form.frequency.errors.0 }}</small>
+                {% endif %}
+                <small style="color: var(--text-light);">How often should we scan this project?</small>
+            </div>
+            
+            <div class="form-group">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    {{ form.notification_enabled }}
+                    <label for="{{ form.notification_enabled.id_for_label }}" style="margin: 0;">Enable notifications for new issues</label>
+                </div>
+                {% if form.notification_enabled.errors %}
+                    <small style="color: var(--danger-color);">{{ form.notification_enabled.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div style="background: var(--bg-light); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <h4 style="font-size: 1rem; margin-bottom: 10px;">What will happen?</h4>
+                <ul style="color: var(--text-color); margin-left: 20px;">
+                    <li>Automated scans will run based on selected frequency</li>
+                    <li>You'll receive notifications for new accessibility issues</li>
+                    <li>Compliance score trends will be tracked over time</li>
+                    <li>You can pause or delete the schedule anytime</li>
+                </ul>
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="flex: 1;">Create Schedule</button>
+                <a href="{% url 'monitoring:monitoring_dashboard' %}" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

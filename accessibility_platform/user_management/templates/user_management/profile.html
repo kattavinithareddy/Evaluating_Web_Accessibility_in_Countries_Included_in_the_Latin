@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile - Accessibility Platform{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 700px; margin-top: 40px;">
+    <div class="card">
+        <div class="card-header">
+            <h3>Edit Profile</h3>
+            <p style="color: var(--text-light); margin-top: 10px;">Update your personal information</p>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="alert alert-error">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <small style="color: var(--danger-color);">{{ form.first_name.errors.0 }}</small>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <small style="color: var(--danger-color);">{{ form.last_name.errors.0 }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email Address</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <small style="color: var(--danger-color);">{{ form.email.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.phone_number.id_for_label }}">Phone Number</label>
+                {{ form.phone_number }}
+                {% if form.phone_number.errors %}
+                    <small style="color: var(--danger-color);">{{ form.phone_number.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.organization_name.id_for_label }}">Organization Name</label>
+                {{ form.organization_name }}
+                {% if form.organization_name.errors %}
+                    <small style="color: var(--danger-color);">{{ form.organization_name.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.organization_type.id_for_label }}">Organization Type</label>
+                {{ form.organization_type }}
+                {% if form.organization_type.errors %}
+                    <small style="color: var(--danger-color);">{{ form.organization_type.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.profile_picture.id_for_label }}">Profile Picture</label>
+                {% if user.profile_picture %}
+                    <div style="margin-bottom: 10px;">
+                        <img src="{{ user.profile_picture.url }}" alt="Current profile" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border-color);">
+                    </div>
+                {% endif %}
+                {{ form.profile_picture }}
+                {% if form.profile_picture.errors %}
+                    <small style="color: var(--danger-color);">{{ form.profile_picture.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.accessibility_goals.id_for_label }}">Accessibility Goals</label>
+                {{ form.accessibility_goals }}
+                {% if form.accessibility_goals.errors %}
+                    <small style="color: var(--danger-color);">{{ form.accessibility_goals.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="flex: 1;">Update Profile</button>
+                <a href="{% url 'user_management:dashboard' %}" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

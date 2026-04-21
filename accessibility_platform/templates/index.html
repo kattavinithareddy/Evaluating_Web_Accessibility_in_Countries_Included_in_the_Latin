@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome - Accessibility Platform{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 60px;">
+    <!-- Hero Section -->
+    <div class="card" style="text-align: center; padding: 80px 40px; background: var(--primary-gradient); color: #ecf0f1;">
+        <h1 style="font-size: 3rem; margin-bottom: 20px; color: #ecf0f1;">AI-Powered Accessibility Compliance</h1>
+        <p style="font-size: 1.3rem; margin-bottom: 40px; color: #ecf0f1; opacity: 0.9;">
+            Ensure your digital platforms meet WCAG 2.2 standards with automated testing and AI-driven insights
+        </p>
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <a href="{% url 'user_management:register' %}" class="btn" style="background: #ecf0f1; color: var(--primary-color); font-size: 1.1rem; padding: 15px 40px;">Get Started</a>
+            <a href="{% url 'user_management:login' %}" class="btn btn-outline" style="border-color: #ecf0f1; color: #ecf0f1; font-size: 1.1rem; padding: 15px 40px;">Login</a>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div style="margin-top: 60px;">
+        <h2 style="text-align: center; margin-bottom: 40px;">Key Features</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">🔍</div>
+                <h3 style="margin-bottom: 15px;">Automated Scanning</h3>
+                <p style="color: var(--text-light);">
+                    Comprehensive WCAG 2.2 compliance checks with detailed issue detection
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">🤖</div>
+                <h3 style="margin-bottom: 15px;">AI-Powered Analysis</h3>
+                <p style="color: var(--text-light);">
+                    Machine learning models provide intelligent recommendations and predictions
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">📊</div>
+                <h3 style="margin-bottom: 15px;">Detailed Reports</h3>
+                <p style="color: var(--text-light);">
+                    Generate comprehensive reports in PDF, Excel, and HTML formats
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">👥</div>
+                <h3 style="margin-bottom: 15px;">User Testing</h3>
+                <p style="color: var(--text-light);">
+                    Real-world accessibility testing with diverse user groups
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">🔔</div>
+                <h3 style="margin-bottom: 15px;">Continuous Monitoring</h3>
+                <p style="color: var(--text-light);">
+                    Automated scans and instant notifications for new issues
+                </p>
+            </div>
+            
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">📋</div>
+                <h3 style="margin-bottom: 15px;">Policy Guidance</h3>
+                <p style="color: var(--text-light);">
+                    Access to international accessibility standards and recommendations
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="card" style="margin-top: 60px; text-align: center; padding: 60px 40px;">
+        <h2 style="margin-bottom: 40px;">Why Accessibility Matters</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
+            <div>
+                <h3 style="font-size: 3rem; color: var(--success-color); margin-bottom: 10px;">15%</h3>
+                <p style="color: var(--text-light);">of global population has a disability</p>
+            </div>
+            <div>
+                <h3 style="font-size: 3rem; color: var(--success-color); margin-bottom: 10px;">1B+</h3>
+                <p style="color: var(--text-light);">people worldwide affected</p>
+            </div>
+            <div>
+                <h3 style="font-size: 3rem; color: var(--success-color); margin-bottom: 10px;">98%</h3>
+                <p style="color: var(--text-light);">of websites have accessibility issues</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="card" style="margin-top: 60px; margin-bottom: 60px; text-align: center; padding: 60px 40px; background: var(--success-gradient); color: #ecf0f1;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: #ecf0f1;">Ready to Get Started?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 40px; color: #ecf0f1; opacity: 0.9;">
+            Join us in creating a more accessible web for everyone
+        </p>
+        <a href="{% url 'user_management:register' %}" class="btn" style="background: #ecf0f1; color: var(--success-color); font-size: 1.1rem; padding: 15px 40px;">Create Free Account</a>
+    </div>
+</div>
+{% endblock %}

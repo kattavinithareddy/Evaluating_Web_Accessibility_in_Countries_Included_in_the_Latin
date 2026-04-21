@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register - Accessibility Platform{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 60px; margin-bottom: 60px;">
+    <div class="card" style="max-width: 600px; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h2 style="margin-bottom: 10px;">Create Your Account</h2>
+            <p style="color: var(--text-light);">Join us in making the web more accessible</p>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="alert alert-error" style="margin-bottom: 20px;">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Username *</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <small style="color: var(--danger-color); display: block; margin-top: 5px;">{{ form.username.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email Address *</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <small style="color: var(--danger-color); display: block; margin-top: 5px;">{{ form.email.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}">Password *</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <small style="color: var(--danger-color); display: block; margin-top: 5px;">{{ form.password1.errors.0 }}</small>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.password2.id_for_label }}">Confirm Password *</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <small style="color: var(--danger-color); display: block; margin-top: 5px;">{{ form.password2.errors.0 }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.role.id_for_label }}">Role *</label>
+                {{ form.role }}
+                {% if form.role.errors %}
+                    <small style="color: var(--danger-color); display: block; margin-top: 5px;">{{ form.role.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.organization_name.id_for_label }}">Organization Name</label>
+                {{ form.organization_name }}
+                {% if form.organization_name.errors %}
+                    <small style="color: var(--danger-color); display: block; margin-top: 5px;">{{ form.organization_name.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.organization_type.id_for_label }}">Organization Type</label>
+                {{ form.organization_type }}
+                {% if form.organization_type.errors %}
+                    <small style="color: var(--danger-color); display: block; margin-top: 5px;">{{ form.organization_type.errors.0 }}</small>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px; padding: 14px;">Create Account</button>
+            
+            <p style="text-align: center; margin-top: 20px; color: var(--text-light);">
+                Already have an account? <a href="{% url 'user_management:login' %}" style="color: var(--secondary-color); font-weight: 600;">Login here</a>
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}

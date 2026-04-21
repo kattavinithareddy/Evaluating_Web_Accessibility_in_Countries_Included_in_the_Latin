@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Audit Log - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 40px;">
+    <h2 style="margin-bottom: 30px;">Audit Log</h2>
+    
+    {% if logs %}
+    <div class="card">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Model</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.timestamp|date:"M d, Y H:i:s" }}</td>
+                    <td>
+                        {% if log.user %}
+                            <strong>{{ log.user.username }}</strong>
+                        {% else %}
+                            <em>System</em>
+                        {% endif %}
+                    </td>
+                    <td><span class="badge badge-minor">{{ log.get_action_type_display }}</span></td>
+                    <td>{{ log.model_name }}</td>
+                    <td>{{ log.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="card" style="text-align: center; padding: 60px 20px;">
+        <h3 style="color: var(--text-light);">No audit logs available</h3>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
